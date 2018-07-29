@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% load widget_tweaks %} {% block content %}
+<section id="estimates">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h3>Please fill out the form for a completely free instant
+					paint estimate!</h3>
+				<br> <br>
+			</div>
+			<div class="col-lg-6 text-left">
+				<form action="{% url 'miltonpainting:estimate' %}" method="post"
+					enctype="multipart/form-data">
+					{% csrf_token %} {% include 'bs4_form.html' with form=form %}
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+		<br> <br>
+		<div class="col-lg-12 text-center">
+
+			<h4>Cost of Paint Not included in Estimate Price</h4>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+
