@@ -12,18 +12,29 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 from whitenoise.django import DjangoWhiteNoise
+import json
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ALLOWED_HOSTS = ['*']
 
+with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+    secrets = json.load(secrets_file)
+
+def get_secret(setting, secrets=secrets):
+    """Get secret setting or fail with ImproperlyConfigured"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        raise ImproperlyConfigured("Set the {} setting".format(setting))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'c1c$f_h9q$i57697nhjdwuztzqp%2&^xty&fjsn6=lm24qeamr'
+SECRET_KEY = get_secret('SECRET_KEY'),
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,7 +52,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'widget_tweaks',
+    'widget_tweaks',
+    'bootstrapform',
+    'bootstrap_datepicker',
+    'datetimewidget',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'django.middleware.locale.LocaleMiddleware' ,
 ]
 
 ROOT_URLCONF = 'fluidestimatesnew.urls'
@@ -75,6 +90,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fluidestimatesnew.wsgi.application'
 
+# SMTP email settings
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'bmisljen@gmail.com'
+EMAIL_HOST_PASSWORD = get_secret('EMAIL_PASSWORD')
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'bmisljen@gmail.com'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -84,7 +107,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'estimatedb',
         'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'PASSWORD': get_secret('DB_PASSWORD'),
         'PORT': '5432',
     }
 }

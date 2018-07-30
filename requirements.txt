@@ -1,3 +1,11 @@
 Django==2.0.7
+django-bootstrap-datepicker==1.3
+django-bootstrap-form==3.4
+django-datetime-widget==0.9.3
+django-jquery==3.1.0
+django-jquery-ui==1.11.4.1
+django-smtp-ssl==1.0
+django-widget-tweaks==1.4.2
 psycopg2==2.7.5
 pytz==2018.5
+whitenoise==3.3.1

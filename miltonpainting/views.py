@@ -7,6 +7,7 @@ from miltonpainting import models
 from django.views import generic
 from django.shortcuts import render
 from django.urls import reverse
+import pdb
 
 class index(generic.ListView):
     """
@@ -49,7 +50,8 @@ def estimate(request):
                                                      name=values['name'],
                                                      other_rooms=values['other_rooms'],
                                                      stairways=values['stairways'],
-                                                     phone=values['phone'])
+                                                     phone=values['phone'],
+                                                     estimate_date=form.cleaned_data['estimate_date'])
 
             estimate.save()
 
@@ -61,31 +63,13 @@ def estimate(request):
         'form': form,
     })
     
-class estimateResults(generic.DetailView):
+def estimateResults(request, estimate_id):
     """
     Display the results of the paint estimate  
     """
-    model = PaintEstimateUser
-    template_name = 'miltonpainting/estimateresults.html'
+    estimate = PaintEstimateUser.objects.filter(id=estimate_id).first()
+    
+    return render(request, 'miltonpainting/estimateresults.html', {
+    'estimate': estimate,
+    })
 
-
-def addBooking(request):
-    """
-    Add the booking to the database and go to the booking done page 
-    """
-    return HttpResponseRedirect(reverse('miltonpainting:bookingdone'))
-
-
-class displayAddBooking(generic.ListView):
-    """
-    Add a new in person estimate booking 
-    """
-    model = PaintEstimateUser
-    template_name = 'miltonpainting/addBooking.html'
-
-class bookingDone(generic.ListView):
-    """
-    Add a new in person estimate booking 
-    """
-    model = PaintEstimateUser
-    template_name = 'miltonpainting/bookingDone.html'

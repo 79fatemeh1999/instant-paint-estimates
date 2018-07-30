@@ -1,3 +1,30 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
+<section id="estimates">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h3>Here are the results of your instant paint estimate:</h3>
+				<br> <br>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h4>Your paint job prep and labour costs are: ${{estimate.estimate_cost}}</h4>
+			</div>
+		</div>
+		<br> <br>
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<small class="form-text text-muted"><h5>An email has
+						been sent to you with the estimate details</h5></small> <br> <small
+					class="form-text text-muted">
+					<h5>A company representative will be in touch shortly</h5>
+				</small> <br> <a
+					class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
+					href="{% url 'miltonpainting:index' %}">Home</a> <br> <br>
+				<a class="btn btn-success btn-xl text-uppercase js-scroll-trigger"
+					href="{% url 'miltonpainting:estimate' %}">New Estimate</a>
 
+			</div>
+		</div></section>
 {% endblock %}

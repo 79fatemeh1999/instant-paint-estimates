@@ -1,6 +1,6 @@
 from django.db import models
 from importlib import import_module
-
+from django.utils.timezone import now
 
 class PaintEstimate(models.Model):
 
@@ -31,7 +31,7 @@ class PaintEstimate(models.Model):
                                         help_text='Cost to paint a Kitchen')
     ceiling_cost = models.IntegerField(default=0,
                                         help_text='Cost to paint a standard '
-                                                  'bedroom ceiling')
+                                                  'room ceiling')
     stairway_cost = models.IntegerField(default=0,
                                         help_text='Cost to paint a '
                                                   'stairway')
@@ -41,12 +41,12 @@ class PaintEstimate(models.Model):
 
     ceiling_trim_cost = models.IntegerField(default=0,
                                              help_text='Cost to paint ceiling '
-                                                       'trim for a standard bedroom')
+                                                       'trim for a standard room')
 
     baseboard_trim_cost = models.IntegerField(default=0,
                                               help_text='Cost to paint baseboard '
-                                                        'trim for a standard bedroom')
-
+                                                        'trim for a standard room')
+    
 
 class PaintEstimateUser(models.Model):
 
@@ -55,7 +55,7 @@ class PaintEstimateUser(models.Model):
     #def __str__(self):              
     #    return self.user_name
 
-    user_name = models.CharField(default='No Name', max_length=200)
+    city = models.CharField(default='Toronto', max_length=200)
     bedrooms = models.IntegerField(default=0)
     master_bedroom = models.BooleanField(default=False)
     bathrooms = models.IntegerField(default=0)
@@ -72,3 +72,4 @@ class PaintEstimateUser(models.Model):
     email= models.CharField(default=' ', max_length=200)
     name= models.CharField(default=' ', max_length=200)
     phone = models.CharField(default=' ', max_length=200)
+    estimate_date = models.DateField()
