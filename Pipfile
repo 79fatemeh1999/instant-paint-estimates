@@ -18,6 +18,7 @@ pytz = "==2018.5"
 whitenoise = "==3.3.1"
 Django = "==2.0.7"
 gunicorn = "*"
+python-decouple = "==3.1"
 
 [dev-packages]
 
