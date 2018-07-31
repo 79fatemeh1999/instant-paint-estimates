@@ -22,15 +22,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ALLOWED_HOSTS = ['*']
 
-with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
-    secrets = json.load(secrets_file)
+# Uncomment if not on Herkoku and use get_secret('SECRET_KEY')
+#with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+#    secrets = json.load(secrets_file)
 
-def get_secret(setting, secrets=secrets):
-    """Get secret setting or fail with ImproperlyConfigured"""
-    try:
-        return secrets[setting]
-    except KeyError:
-        raise ImproperlyConfigured("Set the {} setting".format(setting))
+#def get_secret(setting, secrets=secrets):
+#    """Get secret setting or fail with ImproperlyConfigured"""
+#    try:
+#        return secrets[setting]
+#    except KeyError:
+#        raise ImproperlyConfigured("Set the {} setting".format(setting))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
