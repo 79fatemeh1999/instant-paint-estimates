@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 from whitenoise.django import DjangoWhiteNoise
+import django_heroku
+import dj_database_url
 import json
 from django.core.exceptions import ImproperlyConfigured
 
@@ -45,7 +47,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'miltonpainting.apps.MiltonpaintingConfig',
+    'instantpaintestimate.apps.InstantpaintestimateConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -102,18 +104,19 @@ DEFAULT_FROM_EMAIL = 'bmisljen@gmail.com'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'postgresql': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'estimatedb',
-        'USER': 'postgres',
-        'PASSWORD': get_secret('DB_PASSWORD'),
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#   'postgresql': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'estimatedb',
+#        'USER': 'postgres',
+#        'PASSWORD': get_secret('DB_PASSWORD'),
+#        'PORT': '5432',
+#    }
+#}
 
-DATABASES['default'] = DATABASES['postgresql']
+#DATABASES['default'] = DATABASES['postgresql']
 
+DATABASES = { 'default': dj_database_url.config(conn_max_age=500) }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -163,5 +166,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'miltonpainting/static'),
+    os.path.join(BASE_DIR, 'instantpaintestimate/static'),
 )
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

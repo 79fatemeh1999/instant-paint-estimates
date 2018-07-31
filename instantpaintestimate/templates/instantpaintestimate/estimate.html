@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% load widget_tweaks %} {% load bootstrap %}
+{% load static%} {% block content %}
+
+<head>
+<link rel="stylesheet" type="text/css"
+	href="{% static 'instantpaintestimate/style.css' %}" />
+
+<link rel="stylesheet" type="text/css"
+	href="{% static 'instantpaintestimate/vendor/bootstrap/css/bootstrap.css' %}">
+<link
+	href="{% static 'instantpaintestimate/vendor/font-awesome/css/font-awesome.min.css' %}"
+	rel="stylesheet" type="text/css">
+<script
+	src="{% static 'instantpaintestimate/vendor/bootstrap/js/bootstrap.js' %}"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+<script
+	src="{% static 'instantpaintestimate/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<script
+	src="{% static 'instantpaintestimate/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'instantpaintestimate/js/agency.js' %}"></script>
+{{ form.media }}
+</head>
+
+
+<section id="estimates">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h3>Please fill out the form for a completely free instant
+					paint estimate!</h3>
+				<br> <br>
+			</div>
+			<div class="col-lg-6 text-left">
+				<form action="{% url 'instantpaintestimate:estimate' %}" method="post"
+					enctype="multipart/form-data">
+					{% csrf_token %} {{ form|bootstrap }}
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<br> <br>
+		<div class="col-lg-12 text-center">
+			<h4>Cost of Paint Not included in Estimate Price</h4>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+

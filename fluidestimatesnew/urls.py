@@ -18,6 +18,8 @@ from django.urls import path, include
 
 urlpatterns = [
     # Include the Milton Painting app into the project URLs
-    path('miltonpainting/', include('miltonpainting.urls')),
+    path('instantpaintestimate/', include('instantpaintestimate.urls')),
     path('admin/', admin.site.urls),
 ]
+
+admin.site.site_header = 'Painting Company Admin'
